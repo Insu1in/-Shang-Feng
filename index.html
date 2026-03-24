@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上楓汽車 - 專業守護，讓每一程都安心</title>
+    <style>
+        :root {
+            --primary-color: #1A365D; /* 深藍色，代表專業信任 */
+            --secondary-color: #E53E3E; /* 紅色，代表熱忱與警示 */
+            --bg-light: #F7FAFC;
+            --text-dark: #2D3748;
+            --text-light: #718096;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, '微軟正黑體', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+        }
+
+        /* Navbar */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.2rem; /* 標題變大 */
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            flex: 1; /* 讓 Logo 佔據左側空間 */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex: 2; /* 讓導覽連結佔據中間空間 */
+            justify-content: center; /* 置中 */
+        }
+
+        .nav-links a, .dropbtn {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover, .dropdown:hover .dropbtn {
+            color: var(--secondary-color);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dropdown-content a {
+            color: var(--text-dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--bg-light);
+            color: var(--secondary-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 為了平衡右側，添加一個照片區域 */
+        .nav-right-placeholder {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end; /* 靠最右側 */
+            align-items: center;
+        }
+
+        .nav-image {
+            height: 45px; /* 設定照片高度，使其與 Logo 平衡 */
+            width: auto;
+            border-radius: 4px; /* 圓角美化 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-image:hover {
+            transform: scale(1.1); /* 懸停稍微放大 */
+        }
+
+        /* Hero Section */
+        #hero {
+            margin-top: 60px;
+            background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><rect width="100%" height="100%" fill="%232D3748"/></svg>') center/cover;
+            /* 使用純色SVG代替真實圖片以保持無外部依賴 */
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        #hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s, background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #C53030;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Section Global */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 15px auto 0;
+        }
+
+        /* About Us */
+        #about {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #about p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Services Accordion */
+        .services-accordion {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            background-color: var(--white);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .accordion-header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: var(--white);
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #f8f9fa;
+        }
+
+        .accordion-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .accordion-icon {
+            font-size: 2rem;
+        }
+
+        .accordion-header h3 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .accordion-arrow {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background-color: var(--white);
+            padding: 0 2rem;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px; /* 足夠大的高度以容納內容 */
+            padding: 1rem 2rem 2rem 5.5rem; /* 左側留白對齊標題文字 */
+            border-top: 1px solid #eee;
+        }
+
+        .service-detail-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .service-detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-detail-section h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .service-detail-section p {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-detail-list {
+            list-style: none;
+        }
+
+        .service-detail-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .service-detail-list li::before {
+            content: '•';
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .service-detail-list li strong {
+            color: var(--primary-color);
+        }
+
+        /* Advantages Grid */
+        #advantages {
+            background-color: var(--white);
+        }
+        
+        .adv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .adv-item {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 1rem;
+        }
+
+        .adv-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .adv-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        #contact h2.section-title {
+            color: var(--white);
+        }
+        
+        #contact h2.section-title::after {
+            background-color: var(--secondary-color);
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 2;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2D3748;
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* 簡單起見，手機版隱藏導覽列文字 */
+            }
+            #hero h1 {
+                font-size: 2rem;
+            }
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">上楓汽車</a>
+            <div class="nav-links">
+                <a href="#about">關於我們</a>
+                <div class="dropdown">
+                    <button class="dropbtn">服務項目</button>
+                    <div class="dropdown-content">
+                        <a href="#services">定期精緻保養</a>
+                        <a href="#services">專業機械維修</a>
+                        <a href="#services">引擎精密修護</a>
+                        <a href="#services">代辦驗車與保險</a>
+                        <a href="#services">電腦系統診斷</a>
+                    </div>
+                </div>
+                <a href="#advantages">我們的優勢</a>
+                <a href="#contact">聯絡資訊</a>
+            </div>
+            <div class="nav-right-placeholder">
+                <img src="Code_Generated_Image.png" alt="Shang Feng Auto" class="nav-image">
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>專業守護，讓每一程都安心</h1>
+        <p>專注細節，誠信至上。我們不僅修護您的愛車，更堅定守護您與家人的行車安全。</p>
+        <div class="cta-buttons">
+            <a href="#contact" class="btn btn-primary">立即預約保養</a>
+            <a href="#contact" class="btn btn-outline">聯絡專業技師</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">關於我們</h2>
+        <p>
+            深耕在地多年，上楓汽車始終懷抱著對汽車的熱忱與對車主的承諾。我們提供最透明、最專業的保修服務。我們深知，方向盤掌握的不只是方向，更是家人的安全與信任。因此，我們堅持「科技精準判斷、實惠合理報價」，堅決拒絕非必要的零件更換。把您的愛車交給上楓，我們給予它最需要的悉心照料。
+        </p>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title">核心服務事項</h2>
+        <div class="services-accordion">
+            <!-- 1. 定期精緻保養 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-title-wrapper">
+                        <span class="accordion-icon">🛢️</span>
+                        <h3>定期精緻保養</h3>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="service-detail-section">
+                        <h4>服務宗旨：預防重於治療，將車況維持在巔峰狀態。</h4>
+                        <ul class="service-detail-list">
+                            <li><strong>基礎檢查：</strong> 嚴謹執行「五油三水」巡檢（機油、變速箱油、煞車油、方向機油、差速器油；冷卻水、雨刷水、電瓶水）。</li>
+                            <li><strong>濾芯更新：</strong> 定期更換機油濾芯、空氣濾芯及冷氣濾網，確保引擎呼吸順暢與車內空氣清新。</li>
+                            <li><strong>全車安全掃描：</strong> 包含輪胎胎紋胎壓檢測、煞車皮磨耗評估、燈光系統測試。</li>
+                            <li><strong>底盤巡檢：</strong> 檢查底盤是否有異常滲漏或零件鬆動，及早發現潛在風險。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 專業機械維修 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-title-wrapper">
+                        <span class="accordion-icon">🔧</span>
+                        <h3>專業機械維修</h3>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="service-detail-section">
+                        <h4>服務宗旨：精準排除異音與操控異常，還原車輛剛出廠的穩定。</h4>
+                        <ul class="service-detail-list">
+                            <li><strong>底盤與懸吊：</strong> 避震器更換、三角架、拉桿及各類橡膠襯套檢修，解決車身晃動與異音問題。</li>
+                            <li><strong>制動系統：</strong> 煞車盤研磨與更換、煞車分泵維護、高精準度煞車油管檢修。</li>
+                            <li><strong>傳動系統：</strong> 傳動軸防塵套更換、變速箱濾網清理與油封維護，確保動力傳輸不流失。</li>
+                            <li><strong>冷卻系統：</strong> 水箱、水泵浦、節溫器（水桶）檢測與更換，防止引擎過熱。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 引擎精密修護 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-title-wrapper">
+                        <span class="accordion-icon">⚙️</span>
+                        <h3>引擎精密修護</h3>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="service-detail-section">
+                        <h4>服務宗旨：職人級精密工藝，讓愛車的核心心臟重獲新生。</h4>
+                        <ul class="service-detail-list">
+                            <li><strong>積碳深度清洗：</strong> 包含進氣歧管、節氣門、噴油嘴及汽缸內部的專業清洗，提升油門反應。</li>
+                            <li><strong>滲漏精修：</strong> 針對引擎上蓋、油底殼、曲軸油封等常見滲油問題進行徹底修復。</li>
+                            <li><strong>核心組件更換：</strong> 正時皮帶鏈條更換、汽門間隙調整、火星塞檢修。</li>
+                            <li><strong>引擎大修：</strong> 針對高里程或嚴重受損引擎，提供活塞、環、連桿及汽缸頭的精密整復服務。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 代辦驗車與保險 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-title-wrapper">
+                        <span class="accordion-icon">📝</span>
+                        <h3>代辦驗車與保險</h3>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="service-detail-section">
+                        <h4>服務宗旨：一站式便利服務，為您省下排隊奔波的寶貴時間。</h4>
+                        <ul class="service-detail-list">
+                            <li><strong>代辦定期檢驗：</strong> 專業技師先行預檢，確認燈光、煞車與廢氣排放符合標準，確保驗車一次順利通過。</li>
+                            <li><strong>保險諮詢與續保：</strong> 提供強制險、第三人責任險及車體險諮詢，根據您的用車習慣規劃最合適的保障。</li>
+                            <li><strong>違規與稅務查詢：</strong> 協助車主確認是否有未處理的罰單或稅金，避免影響驗車進度。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 電腦系統診斷 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-title-wrapper">
+                        <span class="accordion-icon">💻</span>
+                        <h3>電腦系統診斷</h3>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="service-detail-section">
+                        <h4>服務宗旨：運用科技數據，快速找出肉眼看不見的電子故障點。</h4>
+                        <ul class="service-detail-list">
+                            <li><strong>全系統掃描：</strong> 使用現代化診斷儀器，讀取引擎（ECU）、變速箱（TCU）、煞車（ABS/ESP）及氣囊（SRS）故障代碼。</li>
+                            <li><strong>數據即時分析：</strong> 觀察噴油量、點火時間、氧感應器數據，針對燃油效率進行微調。</li>
+                            <li><strong>保養指示重設：</strong> 保養完成後的歸零作業與電子零件（如電子節氣門、電子煞車）的校對學習。</li>
+                            <li><strong>電控問題查修：</strong> 針對感應器失效、線路老化或電子模組異常提供精確的修復建議。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="advantages" style="max-width: 100%; padding: 80px 5%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title">我們的優勢</h2>
+            <div class="adv-grid">
+                <div class="adv-item">
+                    <h3>價格透明</h3>
+                    <p>維修前必先充分溝通與報價，取得您的同意後才動工，絕不事後加價。</p>
+                </div>
+                <div class="adv-item">
+                    <h3>科技設備</h3>
+                    <p>斥資導入現代化電腦診斷儀器，對症下藥，拒絕盲目拆換。</p>
+                </div>
+                <div class="adv-item">
+                    <h3>嚴選零件</h3>
+                    <p>堅持使用原廠級高品質零件，耐用有保證，讓您開得安心長久。</p>
+                </div>
+                <div class="adv-item">
+                    <h3>環境整潔</h3>
+                    <p>顛覆傳統修車廠刻板印象，維持廠區乾淨、明亮、有序，提供舒適的候車體驗。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">聯絡資訊</h2>
+        <div class="contact-info">
+            <p><strong>📍 服務地址：</strong> 台中市大雅區 (請填寫完整地址)</p>
+            <p><strong>📞 預約專線：</strong> 04-XXXX-XXXX (請填寫電話)</p>
+            <p><strong>⏰ 營業時間：</strong> 週一至週六 09:00 - 18:00 (週日與國定假日公休)</p>
+        </div>
+        <a href="#" class="btn btn-primary" style="background-color: #00B900;">LINE 線上預約</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 上楓汽車 保留所有權利。</p>
+    </footer>
+
+    <script>
+        // 平滑滾動處理
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 手風琴 (Accordion) 邏輯
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // 關閉其他已開啟的項目
+                document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+
+                // 如果點擊的是原本關閉的，則開啟它
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
